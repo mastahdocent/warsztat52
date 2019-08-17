@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Strona główna
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<form action="{% url 'home' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Dodaj" />
+</form>
+{% endif %}
+
+{% for photo in photos %}
+    <p>
+        <a href="{% url 'photo' photo.id %}">
+            <img src="{{ photo.image.url }}" style="width: 400px;" /><br />
+        </a>
+        Autor: <b><a href="{% url 'user' photo.author.id %}">{{ photo.author }}</a></b>, 
+        dodano: <b>{{ photo.creation_date|date:"d M Y H:i" }}</b>,
+        polubień: {{ photo.likes.count }}
+    </p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Zdjęcie {{ photo.id }}
+{% endblock %}
+
+{% block content %}
+<p>
+    <img src="{{ photo.image.url }}" style="width: 600px;" /><br />
+    <p>Autor: <b>{{ photo.author }}</b>,
+        dodano: <b>{{ photo.creation_date|date:"d M Y H:i" }}</b></p>
+    <p>{{ photo.description }}</p>
+    <p>Lubią to zdjęcie ({{ photo.likes.count }}):
+        {% for like in photo.likes.all %}
+        {{ like }}
+        {% empty %}
+        nikt nie lubi :( możesz być pierwszy! :)
+        {% endfor%}
+    </p>
+    <form action="{% url 'photo-like' photo.id %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in photo.likes.all %}
+        <input type="submit" value="Jednak nie lubię!" />
+        {% else %}
+        <input type="submit" value="Lubię to!" />
+        {% endif %}
+    </form>
+</p>
+{% endblock %}

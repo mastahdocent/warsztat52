@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Użytkownik {{ user.username }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ user.username }}</h1>
+
+{% if user.avatar %}
+<img src="{{ user.avatar.url }}" />
+{% endif %}
+
+<p>Imię: {{ user.first_name }}</p>
+<p>Nazwisko: {{ user.last_name }}</p>
+<p>Wiek: {{ user.age }}</p>
+<p>Dołączył: {{ user.date_joined|date:"d M Y H:i" }}</p>
+
+{% if request.user.id == user.id %}
+<p><a href="{% url 'user-edit' %}">edytuj mój profil</a></p>
+{% endif %}
+
+{% endblock %}
