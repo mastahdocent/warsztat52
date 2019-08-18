@@ -38,10 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'photoalbum'
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    'photoalbum',
+    'api',
+
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -128,4 +135,16 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = "photoalbum.InstaUser"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "images")
-MEDIA_URL = "/images/" 
+MEDIA_URL = "/images/"
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
