@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'photoalbum',
     'api',
+    'hotel',
 
     'debug_toolbar',
 ]

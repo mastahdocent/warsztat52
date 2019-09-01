@@ -1,0 +1,29 @@
+{% load filters %}
+
+<html>
+
+<body>
+    <h1>Dostępność pokoi</h1>
+
+    <table>
+
+        <tr>
+            <td>Pokój</td>
+            {% for day_number, day in days.items %}
+            <td>{{ day|date:"M d" }}</td>
+            {% endfor %}
+        </tr>
+
+        {% for room in rooms %}
+        <tr>
+            <td>{{ room.name }}</td>
+            {% for day_number, day in days.items %}
+            <td>{{ room|getkey:day_number }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+
+</html>

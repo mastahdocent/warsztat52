@@ -21,6 +21,7 @@ from django.urls import include, path, re_path
 
 from photoalbum.views import (HomeView, PhotoDetailView, PhotoLikeView,
                               UserDetailView, UserEditView)
+from hotel.views import RoomsAvailabilityView                    
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +34,5 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
 
     path('api/', include("api.urls")),
+    path("rooms/", RoomsAvailabilityView.as_view(), name="rooms")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
